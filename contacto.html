@@ -7,6 +7,7 @@
     <title>Contacto | Lastmen Medicina Natural</title>
     <link rel="icon" type="image/png" href="assets/img/iconlastmen.png">
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
@@ -27,6 +28,12 @@
                 <li><a href="nosotros.html" class="navegacion_enlace">Nosotros</a></li>
                 <li><a href="productos.html" class="navegacion_enlace">Productos</a></li>
                 <li><a href="contacto.html" class="navegacion_enlace navegacion_enlace-activo">Contacto</a></li>
+                <li>
+                    <a href="carrito.html" class="navegacion_enlace" id="btn-ver-carrito">
+                        <i class="fas fa-shopping-cart"></i> 
+                        (<span id="contador-carrito">0</span>)
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -109,6 +116,8 @@
     <footer class="footer-principal" id="main-footer">
         <p class="footer-principal_copy">&copy; 2026 Lastmen Productos Naturales. Todos los derechos reservados.</p>
     </footer>
-
+    <script src="js/data.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

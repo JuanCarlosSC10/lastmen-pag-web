@@ -28,6 +28,12 @@
                 <li><a href="nosotros.html" class="navegacion_enlace">Nosotros</a></li>
                 <li><a href="productos.html" class="navegacion_enlace">Productos</a></li>
                 <li><a href="contacto.html" class="navegacion_enlace">Contacto</a></li>
+                <li>
+                    <a href="carrito.html" class="navegacion_enlace" id="btn-ver-carrito">
+                        <i class="fas fa-shopping-cart"></i> 
+                        (<span id="contador-carrito">0</span>)
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -68,32 +74,7 @@
 
         <section class="seccion-bloque" id="sec-destacados">
             <h3 class="seccion-bloque_titulo">Productos Destacados</h3>
-            <div class="grid-productos">
-                <article class="tarjeta-producto">
-                    <span class="tarjeta-producto_tag">Oferta</span>
-                    <img src="https://tikafarma.com/cdn/shop/products/maca-negra-capsulas-amazon-andes-1.jpg?v=1658515243&width=1000" alt="Maca Negra Orgánica en polvo" class="tarjeta-producto_imagen">
-                    <h4 class="tarjeta-producto_titulo">Maca Negra Orgánica 500g</h4>
-                    <p class="tarjeta-producto_descripcion">Energizante natural y revitalizante concentrado.</p>
-                    <span class="tarjeta-producto_precio">S/ 39.90</span>
-                    <a href="productos.html" class="boton-secundario">Ver Detalle</a>
-                </article>
-                <article class="tarjeta-producto">
-                    <span class="tarjeta-producto_tag">Top Ventas</span>
-                    <img src="https://tikafarma.com/cdn/shop/products/Vinagre-manzana-1.jpg?v=1626645644&width=1100" alt="Vinagre de Manzana Orgánico – Puro y Natural" class="tarjeta-producto_imagen">
-                    <h4 class="tarjeta-producto_titulo">Vinagre de Manzana Orgánico 500ml</h4>
-                    <p class="tarjeta-producto_descripcion">Estimula la producción de enzimas digestivas y promueve el equilibrio intestinal.</p>
-                    <span class="tarjeta-producto_precio">S/ 84.90</span>
-                    <a href="productos.html" class="boton-secundario">Ver Detalle</a>
-                </article>
-                <article class="tarjeta-producto">
-                    <span class="tarjeta-producto_tag">Nuevo</span>
-                    <img src="https://tikafarma.com/cdn/shop/products/aceite-anticaida-cabello-graso.jpg?v=1643236644&width=1100" alt="Aceite anti caída cabello graso" class="tarjeta-producto_imagen">
-                    <h4 class="tarjeta-producto_titulo">Aceite Anticaída para Cabello Graso x 30ml</h4>
-                    <p class="tarjeta-producto_descripcion">Nutren, fortalecen y favorecen el crecimiento del cabello evitando su caída.</p>
-                    <span class="tarjeta-producto_precio">S/ 45.00</span>
-                    <a href="productos.html" class="boton-secundario">Ver Detalle</a>
-                </article>
-            </div>
+            <div class="grid-productos" id="grid-destacados"></div>
         </section>
 
     </main>
@@ -101,6 +82,8 @@
     <footer class="footer-principal" id="main-footer">
         <p class="footer-principal_copy">&copy; 2026 Lastmen Productos Naturales. Todos los derechos reservados.</p>
     </footer>
-
+    <script src="js/data.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

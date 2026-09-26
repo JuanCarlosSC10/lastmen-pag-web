@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Catálogo de productos naturales, suplementos orgánicos, infusiones y cuidado personal de Lastmen.">
-    <title>Productos | Lastmen Medicina Natural</title>
+    <meta name="description" content="Carrito de compras de Lastmen Medicina Natural.">
+    <title>Mi Carrito | Lastmen Medicina Natural</title>
     <link rel="icon" type="image/png" href="assets/img/iconlastmen.png">
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -18,7 +18,6 @@
             </a>
             <div class="header-principal_textos sr-only">
                 <h1 class="header-principal_titulo">Lastmen</h1>
-                <h2 class="header-principal_subtitulo">Productos 100% Naturales</h2>
             </div>
         </div>
 
@@ -26,10 +25,10 @@
             <ul class="navegacion_lista">
                 <li><a href="index.html" class="navegacion_enlace">Inicio</a></li>
                 <li><a href="nosotros.html" class="navegacion_enlace">Nosotros</a></li>
-                <li><a href="productos.html" class="navegacion_enlace navegacion_enlace-activo">Productos</a></li>
+                <li><a href="productos.html" class="navegacion_enlace">Productos</a></li>
                 <li><a href="contacto.html" class="navegacion_enlace">Contacto</a></li>
                 <li>
-                    <a href="carrito.html" class="navegacion_enlace" id="btn-ver-carrito">
+                    <a href="carrito.html" class="navegacion_enlace navegacion_enlace-activo" id="btn-ver-carrito">
                         <i class="fas fa-shopping-cart"></i> 
                         (<span id="contador-carrito">0</span>)
                     </a>
@@ -38,26 +37,23 @@
         </nav>
     </header>
 
-    <main class="seccion-bloque" id="sec-catalogo">
-        <h2 class="seccion-bloque_titulo">Catálogo de Productos Naturales</h2>
-        <p class="seccion-contenedor_texto">Explora nuestra selección de productos elaborada para potenciar tu bienestar de forma 100% orgánica.</p>
-
-        <!-- Filtros -->
-        <div class="filtros-categoria">
-            <button class="filtro-btn filtro-btn-activo">Todos</button>
-            <button class="filtro-btn">Suplementos</button>
-            <button class="filtro-btn">Bebidas y Tés</button>
-            <button class="filtro-btn">Cuidado Personal</button>
+<main class="seccion-bloque seccion-carrito" id="sec-vista-carrito">
+        <h2 class="seccion-bloque_titulo">Tu Carrito de Compras</h2>
+        
+        <div id="contenedor-vista-carrito" class="carrito-contenedor">
+            <p>Cargando tu carrito...</p>
         </div>
 
-        <div class="grid-productos-catalogo">
-
+        <div class="resumen-compra">
+            <h3>Total a pagar: <span id="total-pagar" class="resumen-compra_total">S/ 0.00</span></h3>
+            <button class="boton-primario" id="btn-finalizar-compra">Confirmar y Enviar por WhatsApp</button>
         </div>
     </main>
 
     <footer class="footer-principal" id="main-footer">
         <p class="footer-principal_copy">&copy; 2026 Lastmen Productos Naturales. Todos los derechos reservados.</p>
     </footer>
+
     <script src="js/data.js"></script>
     <script src="js/carrito.js"></script>
     <script src="js/app.js"></script>
