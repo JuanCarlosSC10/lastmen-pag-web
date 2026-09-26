@@ -714,9 +714,7 @@ body {
     }
 }
 
-/* 
-   REGLAS ESPECÍFICAS PARA MÓVILES PANTALLAS PEQUEÑAS
-   */
+/*  REGLAS ESPECÍFICAS PARA MÓVILES PANTALLAS PEQUEÑAS */
 @media (max-width: 600px) {
     .header-principal {
         padding: 0.8rem 0.4rem;
