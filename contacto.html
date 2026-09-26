@@ -7,6 +7,7 @@
     <title>Contacto | Lastmen Medicina Natural</title>
     <link rel="icon" type="image/png" href="assets/img/iconlastmen.png">
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
@@ -27,6 +28,12 @@
                 <li><a href="nosotros.html" class="navegacion_enlace">Nosotros</a></li>
                 <li><a href="productos.html" class="navegacion_enlace">Productos</a></li>
                 <li><a href="contacto.html" class="navegacion_enlace navegacion_enlace-activo">Contacto</a></li>
+                <li>
+                    <a href="carrito.html" class="navegacion_enlace" id="btn-ver-carrito">
+                        <i class="fas fa-shopping-cart"></i> 
+                        (<span id="contador-carrito">0</span>)
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -40,22 +47,7 @@
             
             <section class="datos-contacto">
                 <h3 class="seccion-contenedor_subtitulo">Información de Atención</h3>
-                <div class="tarjeta-info">
-                    <h4 class="tarjeta-info_titulo">Ubicación</h4>
-                    <p class="tarjeta-info_texto">Jr. José Prado 252, Tingo Maria - Perú</p>
-                </div>
-                <div class="tarjeta-info">
-                    <h4 class="tarjeta-info_titulo">WhatsApp / Teléfono</h4>
-                    <p class="tarjeta-info_texto">+51 912 059 868</p>
-                </div>
-                <div class="tarjeta-info">
-                    <h4 class="tarjeta-info_titulo">Correo Electrónico</h4>
-                    <p class="tarjeta-info_texto">73361189@lastmen.pe</p>
-                </div>
-                <div class="tarjeta-info">
-                    <h4 class="tarjeta-info_titulo">Horario de Atención</h4>
-                    <p class="tarjeta-info_texto">Lunes a Sábado: 8:00 am - 7:00 pm</p>
-                </div>
+            
             </section>
 
             <section class="formulario-seccion">
@@ -109,6 +101,8 @@
     <footer class="footer-principal" id="main-footer">
         <p class="footer-principal_copy">&copy; 2026 Lastmen Productos Naturales. Todos los derechos reservados.</p>
     </footer>
-
+    <script src="js/data.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

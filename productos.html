@@ -7,6 +7,7 @@
     <title>Productos | Lastmen Medicina Natural</title>
     <link rel="icon" type="image/png" href="assets/img/iconlastmen.png">
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
@@ -27,6 +28,12 @@
                 <li><a href="nosotros.html" class="navegacion_enlace">Nosotros</a></li>
                 <li><a href="productos.html" class="navegacion_enlace navegacion_enlace-activo">Productos</a></li>
                 <li><a href="contacto.html" class="navegacion_enlace">Contacto</a></li>
+                <li>
+                    <a href="carrito.html" class="navegacion_enlace" id="btn-ver-carrito">
+                        <i class="fas fa-shopping-cart"></i> 
+                        (<span id="contador-carrito">0</span>)
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -34,71 +41,35 @@
     <main class="seccion-bloque" id="sec-catalogo">
         <h2 class="seccion-bloque_titulo">Catálogo de Productos Naturales</h2>
         <p class="seccion-contenedor_texto">Explora nuestra selección de productos elaborada para potenciar tu bienestar de forma 100% orgánica.</p>
-
+        
         <!-- Filtros -->
-        <div class="filtros-categoria">
-            <button class="filtro-btn filtro-btn-activo">Todos</button>
-            <button class="filtro-btn">Suplementos</button>
-            <button class="filtro-btn">Bebidas y Tés</button>
-            <button class="filtro-btn">Cuidado Personal</button>
+        <div class="filtros-categoria" id="contenedor-filtros">
         </div>
 
-
-        <div class="grid-productos-catalogo">
+        <div class="controles-catalogo">
+            <div class="campo-busqueda">
+                <i class="fas fa-search icono-busqueda"></i>
+                <input 
+                    type="text" 
+                    id="input-buscar" 
+                    placeholder="Buscar por producto o tratamiento..." 
+                    class="input-control"
+                    autocomplete="off"
+                >
+            </div>
             
-            <article class="tarjeta-producto">
-                <span class="tarjeta-producto_tag">Oferta</span>
-                 <img src="https://tikafarma.com/cdn/shop/products/maca-negra-capsulas-amazon-andes-1.jpg?v=1658515243&width=1000" alt="Maca Negra Orgánica en polvo" class="tarjeta-producto_imagen">
-                <h3 class="tarjeta-producto_titulo">Maca Negra Orgánica 500g</h3>
-                <p class="tarjeta-producto_descripcion">Superalimento energizante, combate la fatiga física y mental de forma natural.</p>
-                <span class="tarjeta-producto_precio">S/ 39.90</span>
-                <button class="boton-primario">Consultar por Whatsapp</button>
-            </article>
-
-            <article class="tarjeta-producto">
-                <span class="tarjeta-producto_tag">Top Ventas</span>
-                 <img src="https://tikafarma.com/cdn/shop/files/colageno-hidrolizado-capsulas-inkanat.jpg?v=1697317289&width=1100" alt="Colágeno Hidrolizado" class="tarjeta-producto_imagen">
-                <h3 class="tarjeta-producto_titulo">Colágeno Hidrolizado 500g</h3>
-                <p class="tarjeta-producto_descripcion">Reforzado con Camu Camu para favorecer la salud articular, piel y cabello.</p>
-                <span class="tarjeta-producto_precio">S/ 84.90</span>
-                <button class="boton-primario">Consultar por Whatsapp</button>
-            </article>
-
-            <article class="tarjeta-producto">
-                <span class="tarjeta-producto_tag">Nuevo</span>
-                <img src="https://tikafarma.com/cdn/shop/files/te-matcha-sachets-real-food-1_6fcd2304-2335-4d61-99e1-b19432d62343.jpg?v=1733976932&width=1100" alt="Té Verde Matcha Ceremonial" class="tarjeta-producto_imagen">
-                <h3 class="tarjeta-producto_titulo">Té Verde Matcha Ceremonial</h3>
-                <p class="tarjeta-producto_descripcion">Potente antioxidante vegetal en polvo, ideal para mañanas llenas de energía.</p>
-                <span class="tarjeta-producto_precio">S/ 45.00</span>
-                <button class="boton-primario">Consultar por Whatsapp</button>
-            </article>
-
-            <article class="tarjeta-producto">
-                <span class="tarjeta-producto_tag">Recomendado</span>
-                <img src="https://tikafarma.com/cdn/shop/files/aceite-palta-1_e8482423-7135-4aa2-949d-614b74a30004.jpg?v=1721828875&width=1100" alt="Aceite de Palta 100% Puro x 250ml" class="tarjeta-producto_imagen">
-                <h3 class="tarjeta-producto_titulo">Aceite de Palta 100% Puro x 250ml</h3>
-                <p class="tarjeta-producto_descripcion">Cicatrizante y antiinflamatorio natural extraído en frío en la Amazonía.</p>
-                <span class="tarjeta-producto_precio">S/ 29.90</span>
-                <button class="boton-primario">Consultar por Whatsapp</button>
-            </article>
-
-            <article class="tarjeta-producto">
-                <span class="tarjeta-producto_tag">Orgánico</span>
-                <img src="https://tikafarma.com/cdn/shop/products/curcuma-polvo.jpg?v=1643237205&width=1100" alt="Cúrcuma + Pimienta Negra" class="tarjeta-producto_imagen">
-                <h3 class="tarjeta-producto_titulo">Cúrcuma + Pimienta Negra</h3>
-                <p class="tarjeta-producto_descripcion">60 cápsulas vegetales para reforzar el sistema inmunológico y digestivo.</p>
-                <span class="tarjeta-producto_precio">S/ 49.90</span>
-                <button class="boton-primario">Consultar por Whatsapp</button>
-            </article>
-
-            <article class="tarjeta-producto">
-                <span class="tarjeta-producto_tag">Especial</span>
-                <img src="https://tikafarma.com/cdn/shop/files/tocosh-polvo-inkanat.jpg?v=1697324181&width=1100" alt="Harina de Tocosh Orgánica" class="tarjeta-producto_imagen">
-                <h3 class="tarjeta-producto_titulo">Harina de Tocosh Orgánica</h3>
-                <p class="tarjeta-producto_descripcion">Penicilina natural andina ideal para proteger la mucosa gástrica e intestinal.</p>
-                <span class="tarjeta-producto_precio">S/ 25.00</span>
-                <button class="boton-primario">Consultar por Whatsapp</button>
-            </article>
+            <div class="campo-ordenar">
+                <label for="select-ordenar"><i class="fas fa-sort-amount-down"></i> Ordenar por:</label>
+                <select id="select-ordenar" class="select-control">
+                    <option value="defecto">Recomendados</option>
+                    <option value="precio-menor">Precio: Menor a Mayor</option>
+                    <option value="precio-mayor">Precio: Mayor a Menor</option>
+                    <option value="nombre-az">Nombre: A - Z</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="grid-productos-catalogo">
 
         </div>
     </main>
@@ -106,6 +77,8 @@
     <footer class="footer-principal" id="main-footer">
         <p class="footer-principal_copy">&copy; 2026 Lastmen Productos Naturales. Todos los derechos reservados.</p>
     </footer>
-
+    <script src="js/data.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

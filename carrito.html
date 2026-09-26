@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carrito de compras de Lastmen Medicina Natural.">
+    <title>Mi Carrito | Lastmen Medicina Natural</title>
+    <link rel="icon" type="image/png" href="assets/img/iconlastmen.png">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+    <header class="header-principal" id="main-header">
+        <div class="header-principal_brand">
+            <a href="index.html">
+                <img src="assets/img/logo-lastmen.jpg" alt="Lastmen Productos 100% Naturales" class="header-principal_logo">
+            </a>
+            <div class="header-principal_textos sr-only">
+                <h1 class="header-principal_titulo">Lastmen</h1>
+            </div>
+        </div>
+
+        <nav class="navegacion" aria-label="Navegación Principal">
+            <ul class="navegacion_lista">
+                <li><a href="index.html" class="navegacion_enlace">Inicio</a></li>
+                <li><a href="nosotros.html" class="navegacion_enlace">Nosotros</a></li>
+                <li><a href="productos.html" class="navegacion_enlace">Productos</a></li>
+                <li><a href="contacto.html" class="navegacion_enlace">Contacto</a></li>
+                <li>
+                    <a href="carrito.html" class="navegacion_enlace navegacion_enlace-activo" id="btn-ver-carrito">
+                        <i class="fas fa-shopping-cart"></i> 
+                        (<span id="contador-carrito">0</span>)
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="seccion-bloque seccion-carrito" id="sec-vista-carrito">
+        <h2 class="seccion-bloque_titulo">Tu Carrito de Compras</h2>
+        
+        <div id="contenedor-vista-carrito" class="carrito-contenedor">
+            <p>Cargando tu carrito...</p>
+        </div>
+
+        <div class="resumen-compra">
+            <h3>Total a pagar: <span id="total-pagar" class="resumen-compra_total">S/ 0.00</span></h3>
+            <button class="boton-primario" id="btn-finalizar-compra">Confirmar y Enviar por WhatsApp</button>
+        </div>
+    </main>
+
+    <footer class="footer-principal" id="main-footer">
+        <p class="footer-principal_copy">&copy; 2026 Lastmen Productos Naturales. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
