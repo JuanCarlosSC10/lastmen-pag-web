@@ -41,15 +41,34 @@
     <main class="seccion-bloque" id="sec-catalogo">
         <h2 class="seccion-bloque_titulo">Catálogo de Productos Naturales</h2>
         <p class="seccion-contenedor_texto">Explora nuestra selección de productos elaborada para potenciar tu bienestar de forma 100% orgánica.</p>
-
+        
         <!-- Filtros -->
-        <div class="filtros-categoria">
-            <button class="filtro-btn filtro-btn-activo">Todos</button>
-            <button class="filtro-btn">Suplementos</button>
-            <button class="filtro-btn">Bebidas y Tés</button>
-            <button class="filtro-btn">Cuidado Personal</button>
+        <div class="filtros-categoria" id="contenedor-filtros">
         </div>
 
+        <div class="controles-catalogo">
+            <div class="campo-busqueda">
+                <i class="fas fa-search icono-busqueda"></i>
+                <input 
+                    type="text" 
+                    id="input-buscar" 
+                    placeholder="Buscar por producto o tratamiento..." 
+                    class="input-control"
+                    autocomplete="off"
+                >
+            </div>
+            
+            <div class="campo-ordenar">
+                <label for="select-ordenar"><i class="fas fa-sort-amount-down"></i> Ordenar por:</label>
+                <select id="select-ordenar" class="select-control">
+                    <option value="defecto">Recomendados</option>
+                    <option value="precio-menor">Precio: Menor a Mayor</option>
+                    <option value="precio-mayor">Precio: Mayor a Menor</option>
+                    <option value="nombre-az">Nombre: A - Z</option>
+                </select>
+            </div>
+        </div>
+        
         <div class="grid-productos-catalogo">
 
         </div>

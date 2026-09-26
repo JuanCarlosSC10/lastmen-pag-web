@@ -1,7 +1,9 @@
+// Variable global para mantener el estado de la categoría seleccionada (0 = Todas)
+let idCategoriaSeleccionada = 0;
+
 // Evento de carga: esperamos a que el HTML se cargue por completo
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Ejecución de la estructura de control do...while
     verificarDisponibilidadCatalogo();
 
     actualizarContadorCarrito();
@@ -9,40 +11,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const contenedorDestacados = document.querySelector('.grid-productos');
     const contenedorCatalogo = document.querySelector('.grid-productos-catalogo');
     const contenedorVistaCarrito = document.getElementById('contenedor-vista-carrito'); 
-    const botonesFiltro = document.querySelectorAll('.filtro-btn');
 
+    // Renderizar productos destacados si existen en la página
     if(contenedorDestacados){
         const destacados = productosBD.filter(p => p.destacado === true);
         pintarProductos(destacados, contenedorDestacados);
     }
     
+    // Renderizar productos, filtros por categoría, buscador y ordenamiento si estamos en el catálogo
     if(contenedorCatalogo){
-        pintarProductos(productosBD, contenedorCatalogo);
+        renderizarFiltrosCategorias(); 
+        configurarBuscadorYOrden();
+        procesarFiltrosYOrden();
     }
 
     if(contenedorVistaCarrito){
         pintarPaginaCarrito();
     }
 
-    if (botonesFiltro.length > 0 && contenedorCatalogo) {
-        botonesFiltro.forEach(boton => {
-            boton.addEventListener('click', (e) => {
-                botonesFiltro.forEach(b => b.classList.remove('filtro-btn-activo'));
-                e.target.classList.add('filtro-btn-activo');
-                
-                const categoriaSeleccionada = e.target.textContent.trim();
-
-                if (categoriaSeleccionada === 'Todos') {
-                    pintarProductos(productosBD, contenedorCatalogo);
-                } else {
-                    const productosFiltrados = productosBD.filter(p => p.categoria === categoriaSeleccionada);
-                    pintarProductos(productosFiltrados, contenedorCatalogo);
-                }
-            });
-        });
+    if(document.getElementById('asunto') || document.querySelector('.datos-contacto')){
+        renderizarPaginaContacto();
     }
 
-    // EVENTOS DE FOCO Y TECLADO en el formulario de Contacto
+    // Eventos de foco y teclado en formulario de Contacto
     configurarEventosFormulario();
 });
 
@@ -58,10 +49,99 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// FUNCIÓN PARA RENDERIZAR PRODUCTOS
+// CONFIGURAR ESCUCHADORES PARA EL BUSCADOR Y SELECTOR DE PRECIO
+function configurarBuscadorYOrden() {
+    const inputBuscar = document.getElementById('input-buscar');
+    const selectOrdenar = document.getElementById('select-ordenar');
+
+    if (inputBuscar) {
+        inputBuscar.addEventListener('input', procesarFiltrosYOrden);
+    }
+
+    if (selectOrdenar) {
+        selectOrdenar.addEventListener('change', procesarFiltrosYOrden);
+    }
+}
+
+// FUNCIÓN  QUE FILTRA POR CATEGORÍA, BUSCA Y ORDENA POR PRECIO
+function procesarFiltrosYOrden() {
+    const contenedorCatalogo = document.querySelector('.grid-productos-catalogo');
+    if (!contenedorCatalogo || typeof productosBD === 'undefined') return;
+
+    const inputBuscar = document.getElementById('input-buscar');
+    const selectOrdenar = document.getElementById('select-ordenar');
+
+    const texto = inputBuscar ? inputBuscar.value.toLowerCase().trim() : '';
+    const orden = selectOrdenar ? selectOrdenar.value : 'defecto';
+
+    //  Filtrar por categoría activa y texto de búsqueda
+    let resultado = productosBD.filter(p => {
+        const coincideCategoria = (idCategoriaSeleccionada === 0) || (p.idCategoria === idCategoriaSeleccionada);
+        const coincideTexto = p.nombre.toLowerCase().includes(texto) || 
+                             (p.descripcion && p.descripcion.toLowerCase().includes(texto));
+        return coincideCategoria && coincideTexto;
+    });
+
+    //  Ordenar según opción seleccionad
+    if (orden === 'precio-menor') {
+        resultado.sort((a, b) => a.precio - b.precio);
+    } else if (orden === 'precio-mayor') {
+        resultado.sort((a, b) => b.precio - a.precio);
+    } else if (orden === 'nombre-az') {
+        resultado.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    }
+
+    pintarProductos(resultado, contenedorCatalogo);
+}
+
+// FUNCIÓN PARA RENDERIZAR BOTONES DE CATEGORÍAS Y FILTRAR POR ID
+function renderizarFiltrosCategorias() {
+    const contenedorFiltros = document.getElementById('contenedor-filtros');
+
+    if (!contenedorFiltros || typeof categorias === 'undefined') return;
+
+    contenedorFiltros.innerHTML = '';
+
+    categorias.forEach(cat => {
+        const boton = document.createElement('button');
+        boton.classList.add('filtro-btn');
+        
+        if (cat.idCategoria === 0) {
+            boton.classList.add('filtro-btn-activo');
+        }
+        
+        boton.dataset.idCategoria = cat.idCategoria;
+        boton.textContent = cat.nombre;
+
+        boton.addEventListener('click', (e) => {
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('filtro-btn-activo'));
+            e.target.classList.add('filtro-btn-activo');
+
+            // Actualizamos la categoría seleccionada y procesamos los filtros
+            idCategoriaSeleccionada = parseInt(e.target.dataset.idCategoria);
+            procesarFiltrosYOrden();
+        });
+
+        contenedorFiltros.appendChild(boton);
+    });
+}
+
+// FUNCIÓN PARA RENDERIZAR PRODUCTOS EN LA GRILLA
 function pintarProductos(arrayProductos, contenedor){
 
     contenedor.innerHTML = '';
+
+    // Si no hay productos que coincidan con la búsqueda
+    if (arrayProductos.length === 0) {
+        contenedor.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 2.5rem 1rem; color: #666;">
+                <i class="fas fa-search" style="font-size: 2.2rem; margin-bottom: 0.8rem; color: #1B4D2E;"></i>
+                <p style="font-size: 1.05rem;">No se encontraron productos que coincidan con la búsqueda.</p>
+            </div>
+        `;
+        return;
+    }
+
     const fragmento = document.createDocumentFragment();
 
     arrayProductos.forEach(producto => {
@@ -93,26 +173,22 @@ function pintarProductos(arrayProductos, contenedor){
                 </button>
             </div>
         `;
+
+        // Asignación de evento directa en cada botón del producto
+        const btnAgregar = article.querySelector('.btn-agregar');
+        btnAgregar.addEventListener('click', () => {
+            carritoGlobal.agregar(producto.idProducto);
+            actualizarContadorCarrito();
+            mostrarMensajeAgregado(btnAgregar);
+        });
+
         fragmento.appendChild(article);
     });
 
     contenedor.appendChild(fragmento);
-
-    // DELEGACIÓN DE EVENTOS (Fase de Burbujeo)
-    contenedor.addEventListener('click', (e) => {
-        if(e.target.classList.contains('btn-agregar')) {
-            e.stopPropagation();
-
-            const idBoton = parseInt(e.target.getAttribute('data-id'));
-            carritoGlobal.agregar(idBoton);
-            
-            actualizarContadorCarrito();
-            mostrarMensajeAgregado(e.target);
-        }
-    });
 }
 
-// Función para actualizar el contador de items del carrito en el header
+// Actualizar contador del carrito en el header
 function actualizarContadorCarrito(){
     const spanContador = document.getElementById('contador-carrito');
     if(spanContador){
@@ -120,7 +196,7 @@ function actualizarContadorCarrito(){
     }
 }
 
-// Temporizador para feedback visual del botón
+// Temporizador feedback visual botón
 function mostrarMensajeAgregado(boton) {
     const textoOriginal = boton.textContent;
     boton.textContent = '¡Agregado!';
@@ -140,7 +216,7 @@ function configurarEventosFormulario() {
     if (formulario) {
         formulario.addEventListener('submit', (e) => {
             e.preventDefault(); 
-            alert('Mensaje simulado enviado con éxito. (Falta Backend)');
+            alert('Mensaje simulado enviado con éxito.');
             formulario.reset();
         });
 
@@ -183,7 +259,7 @@ function pintarPaginaCarrito() {
     let total = 0;
     let i = 0;
 
-    // USO DE BUCLE WHILE
+    // BUCLE WHILE
     while (i < listaCarrito.length) {
         const itemCarrito = listaCarrito[i];
         
@@ -195,7 +271,7 @@ function pintarPaginaCarrito() {
         const precioProd = productoOriginal ? productoOriginal.precio : itemCarrito.precio;
         const tagProd = productoOriginal ? productoOriginal.tag : "";
 
-        // USO DE SWITCH
+        // SWITCH
         let badgeTag = "";
         switch(tagProd) {
             case "Oferta":
@@ -284,7 +360,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const total = document.getElementById('total-pagar').textContent;
             mensaje += `%0A*Total a Pagar: ${total}*%0A%0A¡Quedo a la espera de sus datos para el pago!`;
 
-
             const contactoPrincipal = contactosEmpresaBD.find(c => c.esPrincipal === true);
             const numeroWhatsApp = contactoPrincipal ? contactoPrincipal.telefonoCorporativo.replace(/\D/g, '') : "51912059868";
                         
@@ -297,14 +372,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// RENDERIZAR PÁGINA DE CONTACTO
+function renderizarPaginaContacto() {
+    const contenedorInfo = document.getElementById('contenedor-datos-contacto') || document.querySelector('.datos-contacto');
+    const selectAsunto = document.getElementById('asunto');
 
+    if (contenedorInfo && typeof contactosEmpresaBD !== 'undefined') {
+        contenedorInfo.innerHTML = '<h3 class="seccion-contenedor_subtitulo">Información de Atención</h3>';
+
+        contactosEmpresaBD.forEach(contacto => {
+            const tarjeta = document.createElement('article');
+            tarjeta.classList.add('tarjeta-info');
+            
+            const badgePrincipal = contacto.esPrincipal 
+                ? '<small style="background:#1B4D2E; color:#fff; padding:2px 6px; border-radius:4px; font-size:0.7em; margin-left:6px;">Sede Principal</small>' 
+                : '';
+
+            tarjeta.innerHTML = `
+                <h4 class="tarjeta-info_titulo">${contacto.departamento} ${badgePrincipal}</h4>
+                <p class="tarjeta-info_texto"><strong>Encargado:</strong> ${contacto.cargoEncargado}</p>
+                <p class="tarjeta-info_texto"><strong>Dirección:</strong> ${contacto.direccionSucursal}</p>
+                <p class="tarjeta-info_texto"><strong>Teléfono:</strong> ${contacto.telefonoCorporativo}</p>
+                <p class="tarjeta-info_texto"><strong>Correo:</strong> ${contacto.correoCorporativo}</p>
+                <p class="tarjeta-info_texto"><strong>Horario:</strong> ${contacto.horarioAtencion}</p>
+            `;
+            contenedorInfo.appendChild(tarjeta);
+        });
+    }
+
+    if (selectAsunto && typeof asuntosConsultaBD !== 'undefined') {
+        selectAsunto.innerHTML = '';
+
+        asuntosConsultaBD.forEach(asunto => {
+            const option = document.createElement('option');
+            option.value = asunto.valor;
+            option.textContent = asunto.texto;
+            selectAsunto.appendChild(option);
+        });
+    }
+}
 
 // ESTRUCTURA DE CONTROL DO WHILE
 function verificarDisponibilidadCatalogo() {
     let index = 0;
     if (typeof productosBD === 'undefined' || productosBD.length === 0) return;
     
-    // Recorremos el arreglo de productos al menos una vez usando do...while
     do {
         console.log(`[Sistema Lastmen] Producto verificado en catálogo: ${productosBD[index].nombre}`);
         index++;
