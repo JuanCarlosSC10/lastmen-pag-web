@@ -73,6 +73,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: var(--espacio-xs);
 }
 
@@ -366,7 +367,7 @@ body {
     font-size: 0.95rem;
 }
 
-/* Controles del Catálogo: Buscador y Filtro de Precios */
+/* Controles del Catálogo */
 .controles-catalogo {
     display: flex;
     flex-direction: column;
@@ -547,7 +548,110 @@ body {
     width: 100%;
 }
 
-/* Media Queries (Pantallas grandes) */
+/* =======================================================
+   ESTILOS OPTIMIZADOS PARA EL CARRITO DE COMPRAS
+   ======================================================= */
+.seccion-carrito {
+    min-height: 50vh;
+}
+
+.carrito-contenedor {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.carrito-vacio-texto {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+    margin-top: 2rem;
+}
+
+.carrito-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid var(--gris-borde);
+    padding: 12px 5px;
+    width: 100%;
+}
+
+.carrito-item_info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0; 
+}
+
+.carrito-item_img {
+    width: 55px;
+    height: 55px;
+    border-radius: var(--radio-borde-sm);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.carrito-item_titulo {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carrito-item_precio-unitario {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 3px;
+    white-space: nowrap;
+}
+
+.carrito-item_valores {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 75px;
+}
+
+.carrito-item_cantidad {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    white-space: nowrap;
+}
+
+.carrito-item_precio-subtotal {
+    margin: 2px 0 0 0;
+    color: var(--verde-oscuro);
+    font-size: 1rem;
+    font-weight: bold;
+    white-space: nowrap; 
+}
+
+/* Resumen final */
+.resumen-compra {
+    max-width: 800px;
+    margin: 20px auto 0;
+    text-align: right;
+    border-top: 2px solid var(--gris-borde);
+    padding-top: 15px;
+}
+
+.resumen-compra_total {
+    color: var(--verde-oscuro);
+    font-size: 1.2rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Media Queries (Pantallas Grandes) */
 @media (min-width: 48em) { 
     .header-principal {
         flex-direction: row;
@@ -610,70 +714,38 @@ body {
     }
 }
 
-/* Estilos de Vista de Carrito */
-.seccion-carrito {
-    min-height: 50vh;
-}
+/*  REGLAS ESPECÍFICAS PARA MÓVILES PANTALLAS PEQUEÑAS */
+@media (max-width: 600px) {
+    .header-principal {
+        padding: 0.8rem 0.4rem;
+    }
 
-.carrito-contenedor {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
+    .navegacion_lista {
+        gap: 0.2rem;
+    }
 
-.carrito-vacio-texto {
-    text-align: center;
-    font-size: 1.1rem;
-    color: #555;
-    margin-top: 2rem;
-}
+    .navegacion_enlace {
+        padding: 0.35rem 0.5rem;
+        font-size: 0.85rem;
+    }
 
-.carrito-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    padding: 15px 0;
-}
+    .carrito-item_precio-subtotal,
+    .carrito-item_cantidad,
+    .resumen-compra_total {
+        white-space: nowrap !important;
+    }
 
-.carrito-item_info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
+    .resumen-compra {
+        text-align: center;
+    }
 
-.carrito-item_img {
-    width: 60px;
-    height: 60px;
-    border-radius: 5px;
-    object-fit: cover;
-}
-
-.carrito-item_titulo {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #333;
-}
-
-.carrito-item_precio-subtotal {
-    margin: 5px 0 0 0;
-    color: var(--verde-oscuro);
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
-.resumen-compra {
-    max-width: 800px;
-    margin: 20px auto;
-    text-align: right;
-    border-top: 2px solid #eee;
-    padding-top: 20px;
-}
-
-.resumen-compra_total {
-    color: var(--verde-oscuro);
-}
-
-#btn-finalizar-compra {
-    margin-top: 15px;
+    /* Botón de confirmar compra responsive a pantalla completa */
+    #btn-finalizar-compra,
+    .resumen-compra .boton-primario {
+        width: 100%;
+        display: block;
+        margin-top: 15px;
+        padding: 0.9rem;
+        font-size: 1rem;
+    }
 }
